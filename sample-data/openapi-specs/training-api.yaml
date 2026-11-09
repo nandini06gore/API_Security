@@ -1,0 +1,38 @@
+openapi: 3.0.3
+info:
+  title: Local Training API
+  version: 1.0.0
+  description: Synthetic example contract for repository exercises.
+servers:
+  - url: http://127.0.0.1:8000
+paths:
+  /health:
+    get:
+      summary: Health check
+      responses:
+        '200':
+          description: Service is healthy
+  /v1/accounts/{accountId}:
+    get:
+      summary: Retrieve a synthetic account
+      parameters:
+        - name: accountId
+          in: path
+          required: true
+          schema:
+            type: string
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Synthetic account returned when authorized
+        '401':
+          description: Authentication required
+        '403':
+          description: Caller is not authorized
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
